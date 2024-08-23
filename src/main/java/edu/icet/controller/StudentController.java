@@ -28,4 +28,9 @@ public class StudentController {
     public void updateStudent(@RequestBody Student student){
         service.addStudent(student);
     }
+
+    @GetMapping("/find-by-name/{name}")
+    public List<Student> findByName(@PathVariable String name){
+        return service.findByName(name);
+    }
 }

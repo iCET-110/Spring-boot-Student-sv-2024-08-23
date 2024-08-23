@@ -9,4 +9,6 @@ public interface StudentService {
     void addStudent(Student student);
     void deleteStudentById(Integer id);
     void updateStudent(Student student);
+
+    List<Student> findByName(String name);
 }
