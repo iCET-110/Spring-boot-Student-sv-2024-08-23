@@ -1,22 +1,33 @@
-package edu.icet.service;
+package edu.icet.service.impl;
 
 import edu.icet.dto.Student;
+import edu.icet.repository.NativeStudentRepository;
 import edu.icet.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.icet.service.StudentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-    @Autowired
-    StudentRepository repository;
+
+    final StudentRepository repository;
+    final NativeStudentRepository nativeStudentRepository;
 
     @Override
-    public List<Student> getStudent() {
-        List<Student> all = repository.findAll();
-        return all;
+    public Map getStudent() {
+        List<Student> listOfStudents = repository.findAll();
+        Long studentCount = nativeStudentRepository.getRecordCount();
+
+        Map response = new HashMap<>();
+        response.put("studentList",listOfStudents);
+        response.put("studentCount",studentCount);
+
+        return response;
     }
 
     @Override
